@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    @layer base {
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        overscroll-behavior: none;
+      }
+
+      main>:first-child {
+        margin-top: 0 !important;
+      }
+
+      main>:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script
+    id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary": "#960014", "outline-variant": "#c7c4d8", "tertiary-container": "#bc1d25", "surface": "#faf8ff", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "surface-dim": "#d2d9f4", "secondary": "#006c49", "on-background": "#131b2e", "on-primary-fixed": "#0f0069", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#3323cc", "primary": "#3525cd", "on-secondary-fixed-variant": "#005236", "surface-container-high": "#e2e7ff", "on-tertiary-fixed-variant": "#930013", "on-tertiary": "#ffffff", "surface-container-low": "#f2f3ff", "on-primary-container": "#dad7ff", "inverse-surface": "#283044", "on-secondary-container": "#00714d", "surface-container": "#eaedff", "on-tertiary-container": "#ffd0cc", "inverse-on-surface": "#eef0ff", "on-primary": "#ffffff", "on-surface": "#131b2e", "outline": "#777587", "primary-fixed": "#e2dfff", "secondary-container": "#6cf8bb", "on-error-container": "#93000a", "primary-container": "#4f46e5", "surface-tint": "#4d44e3", "surface-container-highest": "#dae2fd", "surface-bright": "#faf8ff", "inverse-primary": "#c3c0ff", "error-container": "#ffdad6", "secondary-fixed": "#6ffbbe", "tertiary-fixed-dim": "#ffb3ad", "on-surface-variant": "#464555", "on-secondary-fixed": "#002113", "surface-variant": "#dae2fd", "tertiary-fixed": "#ffdad7", "error": "#ba1a1a", "background": "#faf8ff", "on-tertiary-fixed": "#410004", "secondary-fixed-dim": "#4edea3" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "gutter-tablet": "1.5rem", "margin-desktop": "auto", "space-2xl": "3rem", "gutter-desktop": "2rem", "margin-mobile": "1rem", "gutter-mobile": "1rem", "margin-tablet": "2rem", "space-xl": "2rem", "max-content-width": "1200px", "space-xxs": "0.25rem" }, fontFamily: { "label-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "currency-display": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"] }, fontSize: { "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "currency-display": ["36px", { lineHeight: "42px", letterSpacing: "-0.03em", fontWeight: "800" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "700" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.03em", fontWeight: "700" }], "display-lg-mobile": ["30px", { lineHeight: "36px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.025em", fontWeight: "700" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", letterSpacing: "0em", fontWeight: "400" }] } } } };</script>
+</head>
+
+<body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen">
+  <header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div
+      class="h-16 max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm" data-path="dashboard"
+          href="#"><img alt="MoneyTrack Logo" class="h-8 w-auto object-contain"
+            src="https://lh3.googleusercontent.com/aida/AEtjO1WWjImeMFYInSOi6rO9apvvMqhItub1HzHmXq-9CSifoIcGrG7VnPE4_l2N8A9TkFT_FBfi9L-Gn0KN1SSYnsYUdPM3Asly6nNghe6_4JR5pYyeGaNohSgIPUH5O_CoVzcr3ASRw0pvUovxypuqljodmwH3RK-A14QPLdMv0Ns4mpfpFtDOZSMbyDjzkvIs8WJ248RlI260K-VHSQVQG9H-nbz_AYGfvuDjMP5aMOy7TfbsW2s5qsp2dY0" /><span
+            class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">MoneyTrack</span></a>
+        <nav class="hidden md:flex items-center gap-space-xs"
+          data-active-classes="bg-surface-container-high text-primary font-bold rounded-xl"><a
+            class="px-space-sm py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-colors"
+            data-path="dashboard" href="#">Dashboard</a><a aria-current="page"
+            class="px-space-sm py-space-xs transition-colors bg-surface-container-high text-primary font-bold rounded-xl"
+            data-path="friends-ledger" href="#">Friends Ledger</a><a
+            class="px-space-sm py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-colors"
+            data-path="emi-tracker" href="#">EMI Tracker</a><a
+            class="px-space-sm py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-xl transition-colors"
+            data-path="settle-up" href="#">Settle Up</a></nav>
+      </div>
+      <div class="flex items-center gap-space-sm"><button
+          class="w-9 h-9 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"
+          type="button"><span class="material-symbols-outlined text-[20px]">search</span></button><button
+          class="w-9 h-9 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors relative"
+          type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span
+            class="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary"></span></button>
+        <div class="h-6 w-[1px] bg-outline-variant/50 mx-space-xxs hidden sm:block"></div><a
+          class="flex items-center pl-space-xxs" data-path="profile-settings" href="#"><img alt="Profile"
+            class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/40 hover:ring-primary transition-all"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt6zbkQdhZwaMIFgIuWtfiJiEGzUUOYvl6xf2aSx7Y9MbU2IqpSr1yqn8ulwpz-V99bfeB9TPOo0BgreCRYZq5r1jvqp8AdPOZFfNQ8S-Vc6nMtRQYmJT9cbw9lWbfaejD5SVqIX_dY-bWOnnFgM9mw6F3af2E6Y-38N3D0vYTlZyrUS-NHw7N6Z4Rr-LkXwglqiU-ElPgB1BiADrZmTKgVVJEhxEm2O4q-MIEpW8Pf6irdZigqKw4" /></a>
+      </div>
+    </div>
+  </header>
+  <main
+    class="w-full pt-16 bg-surface max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop min-h-[calc(100vh-4rem)]">
+    <div class="flex flex-col w-full pb-space-2xl">
+      <!-- Dynamic Notification / Reminder Toast -->
+      <div
+        class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 ease-out bg-inverse-surface text-inverse-on-surface px-space-lg py-space-sm rounded-xl shadow-xl flex items-center gap-space-sm"
+        id="reminderToast">
+        <span class="material-symbols-outlined text-secondary-fixed text-[20px]">mark_email_read</span>
+        <span class="font-label-lg text-label-lg" id="toastMessage">Reminder SMS &amp; notification sent to Maya
+          Chen!</span>
+      </div>
+      <!-- Header Section -->
+      <section class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pt-space-lg pb-space-md">
+        <div>
+          <div class="flex items-center gap-space-xs mb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+            <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Live Peer
+              Ledger</span>
+          </div>
+          <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Friends Ledger</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Track who owes you and who you owe with zero
+            reconciliation friction.</p>
+        </div>
+        <!-- Quick Actions -->
+        <div class="flex items-center gap-space-sm">
+          <button
+            class="inline-flex items-center justify-center gap-space-xs bg-primary text-on-primary hover:bg-primary-container px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all duration-150 active:scale-[0.98]"
+            onclick="openAddFriendModal()" type="button">
+            <span class="material-symbols-outlined text-[18px]">person_add</span>
+            <span>Add Friend</span>
+          </button>
+          <a class="inline-flex items-center justify-center gap-space-xs bg-surface-container text-on-surface hover:bg-surface-container-high px-space-md py-2.5 rounded-xl font-label-lg text-label-lg transition-colors"
+            data-path="settle-up" href="#">
+            <span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+            <span class="hidden sm:inline">Bulk Settle</span>
+          </a>
+        </div>
+      </section>
+      <!-- Financial Summary Strip -->
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-space-md my-space-md">
+        <div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex items-center justify-between">
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">They Owe You</p>
+            <p class="font-headline-md text-headline-md text-secondary mt-0.5 font-bold tabular-nums">+$463.70</p>
+          </div>
+          <div
+            class="w-11 h-11 rounded-xl bg-secondary-container/40 flex items-center justify-center text-on-secondary-container">
+            <span class="material-symbols-outlined text-[24px]">arrow_outward</span>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex items-center justify-between">
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">You Owe Them</p>
+            <p class="font-headline-md text-headline-md text-tertiary mt-0.5 font-bold tabular-nums">-$385.50</p>
+          </div>
+          <div
+            class="w-11 h-11 rounded-xl bg-error-container/40 flex items-center justify-center text-on-error-container">
+            <span class="material-symbols-outlined text-[24px]">call_received</span>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex items-center justify-between">
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">Net Peer Balance</p>
+            <p class="font-headline-md text-headline-md text-primary mt-0.5 font-bold tabular-nums">+$78.20</p>
+          </div>
+          <div
+            class="w-11 h-11 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant">
+            <span class="material-symbols-outlined text-[24px]">balance</span>
+          </div>
+        </div>
+      </section>
+      <!-- Search & Filter Controls -->
+      <section
+        class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm mb-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+        <!-- Input Well -->
+        <div class="relative flex-1">
+          <span
+            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px] pointer-events-none">search</span>
+          <input
+            class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low text-on-surface placeholder:text-outline font-body-md text-body-md rounded-xl outline-none focus:bg-surface-container focus:ring-2 focus:ring-primary/20 transition-all"
+            id="friendSearchInput" oninput="filterFriendsList()" placeholder="Search friend by name, phone or email..."
+            type="text" />
+        </div>
+        <!-- Filter Pills -->
+        <div class="flex items-center gap-space-xs overflow-x-auto pb-1 md:pb-0" id="filterPillsContainer">
+          <button
+            class="filter-pill active-pill px-space-sm py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap bg-primary text-on-primary transition-all"
+            onclick="setFilter('all', this)" type="button">
+            All Friends (6)
+          </button>
+          <button
+            class="filter-pill px-space-sm py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all"
+            onclick="setFilter('owes-you', this)" type="button">
+            Owes You (4)
+          </button>
+          <button
+            class="filter-pill px-space-sm py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all"
+            onclick="setFilter('you-owe', this)" type="button">
+            You Owe (2)
+          </button>
+          <button
+            class="filter-pill px-space-sm py-1.5 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all"
+            onclick="setFilter('settled', this)" type="button">
+            Settled (1)
+          </button>
+        </div>
+      </section>
+      <!-- Master-Detail Ledger Grid (8 : 4 on desktop) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+        <!-- LEFT SIDE: Friends List (7 Cols on desktop for generous spacing) -->
+        <div class="lg:col-span-5 flex flex-col gap-space-xs" id="friendsList">
+          <!-- Friend 1: Maya Chen (Active selection default) -->
+          <div
+            class="friend-card group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-150 p-space-md rounded-2xl shadow-sm relative flex items-center justify-between ring-2 ring-primary/80"
+            data-friend-id="maya" data-name="Maya Chen" data-type="owes-you" onclick="selectFriend('maya')">
+            <div class="flex items-center gap-space-md min-w-0">
+              <div class="relative flex-shrink-0">
+                <img class="w-12 h-12 rounded-full object-cover"
+                  data-alt="Close-up portrait of Maya Chen smiling against a warm sunlit creative studio background, high aesthetic photo with cool ambient rim light"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGtzgdREKk7fsgBdzXto-v9m9AzSYVNgvz8J6D0Nlrtieb0iEBuK-G-V3c7IOSdSNhY_6O2n8jVA5K5FY_oaXv07b1yTdKAtNYtIePm2zJmWl0o6VlvELtqZ1CHof82ZV95ETANy3kwswXV9GJCbwwHJDmKQQYJL_7MI8OVHOQOOMr1F1y9gfbAjZGypAY_iVKX-pzUWHGmo8glfjiB1kbSFMbuPF2rtcUs3kefuxlL32R6eh2ic-W" />
+                <span
+                  class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-space-xs">
+                  <h2 class="font-label-lg text-label-lg text-on-surface truncate">Maya Chen</h2>
+                  <span class="material-symbols-outlined text-primary text-[16px]">verified</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Last split: Oct 22 • Rental gear
+                </p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0 pl-space-xs">
+              <span
+                class="inline-block font-label-md text-label-md text-secondary font-bold tabular-nums">+$240.00</span>
+              <p class="font-label-sm text-label-sm text-secondary uppercase tracking-wide">Owes You</p>
+            </div>
+          </div>
+          <!-- Friend 2: Liam Vance -->
+          <div
+            class="friend-card group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-150 p-space-md rounded-2xl shadow-sm relative flex items-center justify-between"
+            data-friend-id="liam" data-name="Liam Vance" data-type="owes-you" onclick="selectFriend('liam')">
+            <div class="flex items-center gap-space-md min-w-0">
+              <div class="relative flex-shrink-0">
+                <img class="w-12 h-12 rounded-full object-cover"
+                  data-alt="Portrait photo of Liam Vance in a stylish navy merino wool sweater looking friendly and modern in an outdoor urban café environment"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOvkbSCJIEJldV5TYdQZoFPbQIXL6Auua-2FR68NZHHNEa9xqO0-gsnrH9ZqW9QKPwlMBUFwz_k7vJrLZIbFdmTyvVDoyVxmKLi510yFtY8lJ8HT5ENxYQQl_0Eekrp-8f2SfDosNLLnEVrAgd9KuFPZJsjldW2roF5IRZ-CEP1xTYFZxlT30lzzSbPhqN4gccpo-utUmHi2AYgKhRswZkQ3YAocvHhYxa32XOPukbExv3Te7PuBPD" />
+                <span
+                  class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="font-label-lg text-label-lg text-on-surface truncate">Liam Vance</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Last split: Oct 18 • Concert
+                  Tickets</p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0 pl-space-xs">
+              <span
+                class="inline-block font-label-md text-label-md text-secondary font-bold tabular-nums">+$185.50</span>
+              <p class="font-label-sm text-label-sm text-secondary uppercase tracking-wide">Owes You</p>
+            </div>
+          </div>
+          <!-- Friend 3: Alex Rivera -->
+          <div
+            class="friend-card group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-150 p-space-md rounded-2xl shadow-sm relative flex items-center justify-between"
+            data-friend-id="alex" data-name="Alex Rivera" data-type="you-owe" onclick="selectFriend('alex')">
+            <div class="flex items-center gap-space-md min-w-0">
+              <div class="relative flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-headline-sm text-headline-sm font-bold">
+                  AR
+                </div>
+                <span
+                  class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-tertiary ring-2 ring-surface-container-lowest"></span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="font-label-lg text-label-lg text-on-surface truncate">Alex Rivera</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Last split: Oct 14 • Airbnb
+                  deposit</p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0 pl-space-xs">
+              <span class="inline-block font-label-md text-label-md text-tertiary font-bold tabular-nums">-$75.00</span>
+              <p class="font-label-sm text-label-sm text-tertiary uppercase tracking-wide">You Owe</p>
+            </div>
+          </div>
+          <!-- Friend 4: Sarah Jenkins -->
+          <div
+            class="friend-card group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-150 p-space-md rounded-2xl shadow-sm relative flex items-center justify-between"
+            data-friend-id="sarah" data-name="Sarah Jenkins" data-type="owes-you" onclick="selectFriend('sarah')">
+            <div class="flex items-center gap-space-md min-w-0">
+              <div class="relative flex-shrink-0">
+                <img class="w-12 h-12 rounded-full object-cover"
+                  data-alt="Natural candid portrait of Sarah Jenkins with soft ambient lighting wearing round spectacles and cheerful expression indoors"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMP-Yt6Pw-OQQGZijuq4EQ_fAKDz9zZODjX0rsotpsH8MPn24Ul45dOSwB6RI6UtZaKea5qYMIqBRntXJdXCx_8Yf6Dl0qod_SQMvSHoTKRHIYwPFT9r-C1fFWnUQJGUTP3muPpzrJgIXeIX6RXcL70hm-spaJydXgplkduSKdAJGIsInHGytSGX4zJBMd0RYRqBH0svTilKc5Za0OV6DDkH2QN6ZQgmC7VRi4p9nKqAl16BJKuODL" />
+                <span
+                  class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="font-label-lg text-label-lg text-on-surface truncate">Sarah Jenkins</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Last split: Oct 09 • Groceries
+                  split</p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0 pl-space-xs">
+              <span
+                class="inline-block font-label-md text-label-md text-secondary font-bold tabular-nums">+$38.20</span>
+              <p class="font-label-sm text-label-sm text-secondary uppercase tracking-wide">Owes You</p>
+            </div>
+          </div>
+          <!-- Friend 5: David Miller -->
+          <div
+            class="friend-card group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-150 p-space-md rounded-2xl shadow-sm relative flex items-center justify-between"
+            data-friend-id="david" data-name="David Miller" data-type="you-owe" onclick="selectFriend('david')">
+            <div class="flex items-center gap-space-md min-w-0">
+              <div class="relative flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface font-headline-sm text-headline-sm font-bold">
+                  DM
+                </div>
+                <span
+                  class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-tertiary ring-2 ring-surface-container-lowest"></span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="font-label-lg text-label-lg text-on-surface truncate">David Miller</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Last split: Oct 04 • Flights
+                  booking</p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0 pl-space-xs">
+              <span
+                class="inline-block font-label-md text-label-md text-tertiary font-bold tabular-nums">-$310.50</span>
+              <p class="font-label-sm text-label-sm text-tertiary uppercase tracking-wide">You Owe</p>
+            </div>
+          </div>
+          <!-- Friend 6: Priya Patel -->
+          <div
+            class="friend-card group cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-all duration-150 p-space-md rounded-2xl shadow-sm relative flex items-center justify-between opacity-80"
+            data-friend-id="priya" data-name="Priya Patel" data-type="settled" onclick="selectFriend('priya')">
+            <div class="flex items-center gap-space-md min-w-0">
+              <div class="relative flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-headline-sm text-headline-sm font-bold">
+                  PP
+                </div>
+                <span
+                  class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-outline ring-2 ring-surface-container-lowest"></span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="font-label-lg text-label-lg text-on-surface truncate">Priya Patel</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant truncate">Settled on Sep 29 via Venmo</p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0 pl-space-xs">
+              <span class="inline-block font-label-md text-label-md text-outline font-bold tabular-nums">$0.00</span>
+              <p class="font-label-sm text-label-sm text-outline uppercase tracking-wide">Settled Up</p>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT SIDE: Active Detail Panel (Maya Chen) -->
+        <div
+          class="lg:col-span-7 bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col min-w-0 sticky top-20">
+          <!-- Profile Header -->
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pb-space-lg border-b border-surface-container">
+            <div class="flex items-center gap-space-md">
+              <div class="relative">
+                <img class="w-16 h-16 rounded-2xl object-cover shadow-sm"
+                  data-alt="A clean vibrant profile headshot of Maya Chen in a cozy daylight studio portrait"
+                  id="detailAvatar"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkLdUgFM21D_fvoYyOHhVf4-v2B7RQxhAoXTv30nVQGbH4O26_9wMqBcZZq4ZvBjpqCS8f7o3NQKxoFgTSb6HZNjwdUbBPLON-ymDu9q7NFt5Co4dEDbDseNxjWU3WfcEHI80ay-LuynHvtqvk3nvbRiCj-qBdgYJXLWYysy4OVlcxezN6yToLttQr2-IJ-n14LMC8MeXpYIFUqJ_jk7AyXOu62D7cnDWBNPQFc-1pn-qwhSgXrh9P" />
+                <div
+                  class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full p-0.5 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-space-xs">
+                  <h2 class="font-headline-md text-headline-md text-on-surface font-bold" id="detailName">Maya Chen</h2>
+                  <span
+                    class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full font-label-sm text-label-sm">Active
+                    Tab</span>
+                </div>
+                <div
+                  class="flex items-center flex-wrap gap-x-space-md gap-y-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+                  <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[15px]">call</span>
+                    <span id="detailPhone">+1 (555) 382-9901</span>
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[15px]">mail</span>
+                    <span id="detailEmail">maya.chen@designlab.io</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- Total Balance Snapshot Tile -->
+            <div
+              class="bg-surface-container-low p-space-md rounded-2xl text-right sm:min-w-[170px] flex sm:flex-col justify-between sm:justify-center items-center sm:items-end">
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">Net
+                Ledger</span>
+              <div class="text-right">
+                <span
+                  class="font-currency-display text-currency-display font-black text-secondary leading-none block tabular-nums"
+                  id="detailBalance">$240.00</span>
+                <span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider block mt-1"
+                  id="detailSubtext">Maya Owes You</span>
+              </div>
+            </div>
+          </div>
+          <!-- Quick Metrics Bar -->
+          <div class="grid grid-cols-3 gap-space-sm py-space-md border-b border-surface-container text-center">
+            <div class="p-space-xs">
+              <span class="font-body-sm text-body-sm text-on-surface-variant block">Shared Tab</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">4 Transactions</span>
+            </div>
+            <div class="p-space-xs border-x border-surface-container">
+              <span class="font-body-sm text-body-sm text-on-surface-variant block">Avg Resolution</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold">4.2 Days</span>
+            </div>
+            <div class="p-space-xs">
+              <span class="font-body-sm text-body-sm text-on-surface-variant block">Total Settled (YTD)</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-bold tabular-nums">$1,420.00</span>
+            </div>
+          </div>
+          <!-- Transaction History Stream Header -->
+          <div class="flex items-center justify-between pt-space-lg pb-space-sm">
+            <div class="flex items-center gap-space-xs">
+              <span class="material-symbols-outlined text-primary text-[20px]">receipt_long</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Transaction History</h3>
+            </div>
+            <button class="font-label-md text-label-md text-primary hover:underline" type="button">Download CSV</button>
+          </div>
+          <!-- Transactions List -->
+          <div class="flex flex-col gap-space-xs divide-y divide-surface-container" id="transactionsFeed">
+            <!-- Transaction Item 1 -->
+            <div class="pt-space-sm pb-space-xs flex items-center justify-between group">
+              <div class="flex items-center gap-space-sm">
+                <div
+                  class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-fixed transition-colors">
+                  <span class="material-symbols-outlined text-[20px]">downhill_skiing</span>
+                </div>
+                <div>
+                  <p class="font-label-lg text-label-lg text-on-surface">Ski Trip Rental gear</p>
+                  <div class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+                    <span>Oct 22, 2024</span>
+                    <span>•</span>
+                    <span class="text-secondary font-medium">Paid by you (Maya owes 50%)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-label-lg text-label-lg text-secondary font-bold tabular-nums block">+$140.00</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">Total: $280.00</span>
+              </div>
+            </div>
+            <!-- Transaction Item 2 -->
+            <div class="pt-space-sm pb-space-xs flex items-center justify-between group">
+              <div class="flex items-center gap-space-sm">
+                <div
+                  class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-fixed transition-colors">
+                  <span class="material-symbols-outlined text-[20px]">restaurant</span>
+                </div>
+                <div>
+                  <p class="font-label-lg text-label-lg text-on-surface">Sushi Dinner</p>
+                  <div class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+                    <span>Oct 15, 2024</span>
+                    <span>•</span>
+                    <span class="text-on-surface-variant">Split equally (2 people)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-label-lg text-label-lg text-secondary font-bold tabular-nums block">+$65.00</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">Total: $130.00</span>
+              </div>
+            </div>
+            <!-- Transaction Item 3 -->
+            <div class="pt-space-sm pb-space-xs flex items-center justify-between group">
+              <div class="flex items-center gap-space-sm">
+                <div
+                  class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-fixed transition-colors">
+                  <span class="material-symbols-outlined text-[20px]">local_cafe</span>
+                </div>
+                <div>
+                  <p class="font-label-lg text-label-lg text-on-surface">Coffee &amp; Bagels</p>
+                  <div class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+                    <span>Oct 02, 2024</span>
+                    <span>•</span>
+                    <span class="text-on-surface-variant">Morning team breakfast</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-label-lg text-label-lg text-secondary font-bold tabular-nums block">+$35.00</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">Total: $35.00</span>
+              </div>
+            </div>
+            <!-- Transaction Item 4 (Settled) -->
+            <div class="pt-space-sm pb-space-xs flex items-center justify-between group opacity-75">
+              <div class="flex items-center gap-space-sm">
+                <div
+                  class="w-10 h-10 rounded-xl bg-secondary-container/30 flex items-center justify-center text-secondary">
+                  <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <p class="font-label-lg text-label-lg text-on-surface line-through text-outline">Uber home from
+                      Marina</p>
+                    <span
+                      class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-1.5 py-0.2 rounded">Settled</span>
+                  </div>
+                  <div class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+                    <span>Sep 20, 2024</span>
+                    <span>•</span>
+                    <span>Settled via Apple Pay</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span
+                  class="font-label-lg text-label-lg text-outline font-medium tabular-nums block line-through">$28.00</span>
+                <span class="font-label-sm text-label-sm text-secondary font-semibold">Cleared</span>
+              </div>
+            </div>
+          </div>
+          <!-- Action Footer (Fixed & Prominent) -->
+          <div
+            class="mt-space-xl pt-space-md border-t border-surface-container flex flex-col sm:flex-row items-center gap-space-sm">
+            <a class="w-full sm:flex-1 inline-flex items-center justify-center gap-space-xs bg-primary text-on-primary hover:bg-primary-container h-12 rounded-xl font-label-lg text-label-lg shadow-sm transition-all duration-150 active:scale-[0.99]"
+              data-path="settle-up" href="#" id="settleUpBtn">
+              <span class="material-symbols-outlined text-[20px]">payments</span>
+              <span>Settle Up $240.00</span>
+            </a>
+            <button
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs bg-surface-container text-on-surface hover:bg-surface-container-high px-space-lg h-12 rounded-xl font-label-lg text-label-lg transition-colors"
+              id="remindBtn" onclick="sendFriendlyReminder()" type="button">
+              <span class="material-symbols-outlined text-[20px]">notifications_active</span>
+              <span>Remind Friend</span>
+            </button>
+            <button
+              class="w-12 h-12 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0"
+              onclick="openAddSplitModal()" title="Add expense with this friend" type="button">
+              <span class="material-symbols-outlined text-[22px]">add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Micro Modal: Add New Friend Overlay -->
+      <div
+        class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-space-md"
+        id="addFriendModal">
+        <div
+          class="bg-surface-container-lowest w-full max-w-md rounded-3xl p-space-xl shadow-xl flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-space-xs">
+              <span class="material-symbols-outlined text-primary text-[24px]">person_add</span>
+              <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Add Friend to Ledger</h2>
+            </div>
+            <button
+              class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-outline hover:text-on-surface"
+              onclick="closeAddFriendModal()" type="button">
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Send a shared tab invite or track peer balances
+            offline.</p>
+          <form class="flex flex-col gap-space-md mt-2" onsubmit="handleFriendSubmit(event)">
+            <div>
+              <label class="font-label-md text-label-md text-on-surface block mb-1">Full Name</label>
+              <input
+                class="w-full px-3.5 py-2.5 bg-surface-container-low rounded-xl outline-none focus:ring-2 focus:ring-primary/20 text-body-md font-body-md"
+                placeholder="e.g. Jordan Lee" required="" type="text" />
+            </div>
+            <div>
+              <label class="font-label-md text-label-md text-on-surface block mb-1">Phone Number or Email</label>
+              <input
+                class="w-full px-3.5 py-2.5 bg-surface-container-low rounded-xl outline-none focus:ring-2 focus:ring-primary/20 text-body-md font-body-md"
+                placeholder="+1 (555) 000-0000 or email@domain.com" required="" type="text" />
+            </div>
+            <div>
+              <label class="font-label-md text-label-md text-on-surface block mb-1">Starting Balance (Optional)</label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline font-bold">$</span>
+                <input
+                  class="w-full pl-8 pr-3.5 py-2.5 bg-surface-container-low rounded-xl outline-none focus:ring-2 focus:ring-primary/20 text-body-md font-body-md tabular-nums"
+                  placeholder="0.00" step="0.01" type="number" />
+              </div>
+            </div>
+            <div class="flex items-center justify-end gap-space-sm mt-space-sm">
+              <button
+                class="px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container"
+                onclick="closeAddFriendModal()" type="button">Cancel</button>
+              <button
+                class="px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg bg-primary text-on-primary hover:bg-primary-container shadow-sm"
+                type="submit">Save Friend</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <script>
+        // Mock profiles database for immediate reactive inspection
+        const friendProfiles = {
+          maya: {
+            name: "Maya Chen",
+            phone: "+1 (555) 382-9901",
+            email: "maya.chen@designlab.io",
+            balance: "$240.00",
+            direction: "owes-you",
+            subtext: "Maya Owes You",
+            settleText: "Settle Up $240.00",
+            avatarAlt: "Close-up portrait of Maya Chen smiling against a warm sunlit creative studio background",
+            transactions: [
+              { title: "Ski Trip Rental gear", date: "Oct 22, 2024", detail: "Paid by you (Maya owes 50%)", amount: "+$140.00", total: "$280.00", type: "credit" },
+              { title: "Sushi Dinner", date: "Oct 15, 2024", detail: "Split equally (2 people)", amount: "+$65.00", total: "$130.00", type: "credit" },
+              { title: "Coffee & Bagels", date: "Oct 02, 2024", detail: "Morning team breakfast", amount: "+$35.00", total: "$35.00", type: "credit" },
+              { title: "Uber home from Marina", date: "Sep 20, 2024", detail: "Settled via Apple Pay", amount: "$28.00", total: "$28.00", type: "settled", lineThrough: true }
+            ]
+          },
+          liam: {
+            name: "Liam Vance",
+            phone: "+1 (555) 941-2044",
+            email: "liam.vance@techlead.co",
+            balance: "$185.50",
+            direction: "owes-you",
+            subtext: "Liam Owes You",
+            settleText: "Settle Up $185.50",
+            avatarAlt: "Portrait photo of Liam Vance in a stylish navy merino wool sweater looking friendly and modern in an outdoor urban café environment",
+            transactions: [
+              { title: "Concert Tickets (The National)", date: "Oct 18, 2024", detail: "Purchased VIP bundle", amount: "+$150.00", total: "$300.00", type: "credit" },
+              { title: "Brewery Pint Flight", date: "Oct 12, 2024", detail: "Craft beer round", amount: "+$35.50", total: "$71.00", type: "credit" }
+            ]
+          },
+          alex: {
+            name: "Alex Rivera",
+            phone: "+1 (555) 441-8890",
+            email: "alex.rivera@nomad.net",
+            balance: "$75.00",
+            direction: "you-owe",
+            subtext: "You Owe Alex",
+            settleText: "Pay Alex $75.00",
+            avatarAlt: "Alex Rivera portrait representation",
+            transactions: [
+              { title: "Airbnb weekend cabin", date: "Oct 14, 2024", detail: "Security deposit and split", amount: "-$75.00", total: "$450.00", type: "debit" }
+            ]
+          },
+          sarah: {
+            name: "Sarah Jenkins",
+            phone: "+1 (555) 782-1134",
+            email: "sarah.j@creative.io",
+            balance: "$38.20",
+            direction: "owes-you",
+            subtext: "Sarah Owes You",
+            settleText: "Settle Up $38.20",
+            avatarAlt: "Natural candid portrait of Sarah Jenkins with soft ambient lighting wearing round spectacles and cheerful expression indoors",
+            transactions: [
+              { title: "Whole Foods Market Split", date: "Oct 09, 2024", detail: "Dinner ingredients", amount: "+$38.20", total: "$76.40", type: "credit" }
+            ]
+          },
+          david: {
+            name: "David Miller",
+            phone: "+1 (555) 602-4411",
+            email: "david.miller@finops.com",
+            balance: "$310.50",
+            direction: "you-owe",
+            subtext: "You Owe David",
+            settleText: "Pay David $310.50",
+            avatarAlt: "David Miller portrait placeholder",
+            transactions: [
+              { title: "Flight Tickets to Denver", date: "Oct 04, 2024", detail: "David booked airline passes", amount: "-$310.50", total: "$621.00", type: "debit" }
+            ]
+          },
+          priya: {
+            name: "Priya Patel",
+            phone: "+1 (555) 902-7721",
+            email: "priya.p@designteam.org",
+            balance: "$0.00",
+            direction: "settled",
+            subtext: "Settled Up (All Clear)",
+            settleText: "Create New Tab",
+            avatarAlt: "Priya Patel portrait placeholder",
+            transactions: [
+              { title: "Concert Uber split", date: "Sep 29, 2024", detail: "Cleared via Venmo", amount: "$34.00", total: "$34.00", type: "settled", lineThrough: true },
+              { title: "Thai Street Food", date: "Sep 15, 2024", detail: "Dinner bill cleared", amount: "$42.50", total: "$85.00", type: "settled", lineThrough: true }
+            ]
+          }
+        };
+
+        function selectFriend(friendKey) {
+          const data = friendProfiles[friendKey];
+          if (!data) return;
+
+          // Update ring state on friends list
+          document.querySelectorAll('.friend-card').forEach(card => {
+            card.classList.remove('ring-2', 'ring-primary/80');
+          });
+          const activeCard = document.querySelector(`[data-friend-id="${friendKey}"]`);
+          if (activeCard) {
+            activeCard.classList.add('ring-2', 'ring-primary/80');
+          }
+
+          // Populate Detail Panel
+          document.getElementById('detailName').textContent = data.name;
+          document.getElementById('detailPhone').textContent = data.phone;
+          document.getElementById('detailEmail').textContent = data.email;
+
+          const balEl = document.getElementById('detailBalance');
+          const subEl = document.getElementById('detailSubtext');
+          const settleBtn = document.getElementById('settleUpBtn');
+
+          balEl.textContent = data.balance;
+          subEl.textContent = data.subtext;
+          settleBtn.querySelector('span:last-child').textContent = data.settleText;
+
+          if (data.direction === 'owes-you') {
+            balEl.className = "font-currency-display text-currency-display font-black text-secondary leading-none block tabular-nums";
+            subEl.className = "font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider block mt-1";
+          } else if (data.direction === 'you-owe') {
+            balEl.className = "font-currency-display text-currency-display font-black text-tertiary leading-none block tabular-nums";
+            subEl.className = "font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-wider block mt-1";
+          } else {
+            balEl.className = "font-currency-display text-currency-display font-black text-outline leading-none block tabular-nums";
+            subEl.className = "font-label-sm text-label-sm text-outline font-bold uppercase tracking-wider block mt-1";
+          }
+
+          // Render Transaction history
+          const feed = document.getElementById('transactionsFeed');
+          feed.innerHTML = '';
+
+          data.transactions.forEach(tx => {
+            const item = document.createElement('div');
+            item.className = `pt-space-sm pb-space-xs flex items-center justify-between group ${tx.lineThrough ? 'opacity-75' : ''}`;
+
+            const isCredit = tx.type === 'credit';
+            const isDebit = tx.type === 'debit';
+            const isSettled = tx.type === 'settled';
+
+            let colorClass = isCredit ? 'text-secondary' : (isDebit ? 'text-tertiary' : 'text-outline');
+            let iconName = isCredit ? 'restaurant' : (isDebit ? 'flight' : 'check_circle');
+
+            item.innerHTML = `
+          <div class="flex items-center gap-space-sm">
+            <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center ${isCredit ? 'text-primary' : (isDebit ? 'text-tertiary' : 'text-secondary')}">
+              <span class="material-symbols-outlined text-[20px]">${iconName}</span>
+            </div>
+            <div>
+              <p class="font-label-lg text-label-lg text-on-surface ${tx.lineThrough ? 'line-through text-outline' : ''}">${tx.title}</p>
+              <div class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+                <span>${tx.date}</span>
+                <span>•</span>
+                <span>${tx.detail}</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="font-label-lg text-label-lg ${colorClass} font-bold tabular-nums block ${tx.lineThrough ? 'line-through' : ''}">${tx.amount}</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Total: ${tx.total}</span>
+          </div>
+        `;
+            feed.appendChild(item);
+          });
+        }
+
+        function filterFriendsList() {
+          const q = document.getElementById('friendSearchInput').value.toLowerCase().trim();
+          const cards = document.querySelectorAll('.friend-card');
+
+          cards.forEach(card => {
+            const name = card.getAttribute('data-name').toLowerCase();
+            if (name.includes(q)) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        }
+
+        function setFilter(type, btnElement) {
+          // Toggle button active styling
+          document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.classList.remove('bg-primary', 'text-on-primary');
+            pill.classList.add('bg-surface-container', 'text-on-surface-variant');
+          });
+          btnElement.classList.add('bg-primary', 'text-on-primary');
+          btnElement.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+          const cards = document.querySelectorAll('.friend-card');
+          cards.forEach(card => {
+            const cardType = card.getAttribute('data-type');
+            if (type === 'all' || cardType === type) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        }
+
+        function sendFriendlyReminder() {
+          const activeName = document.getElementById('detailName').textContent;
+          const toast = document.getElementById('reminderToast');
+          const toastMsg = document.getElementById('toastMessage');
+
+          toastMsg.textContent = `Payment link & reminder sent to ${activeName}!`;
+          toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+          toast.classList.add('translate-y-0', 'opacity-100');
+
+          setTimeout(() => {
+            toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+          }, 3500);
+        }
+
+        function openAddFriendModal() {
+          const modal = document.getElementById('addFriendModal');
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+
+        function closeAddFriendModal() {
+          const modal = document.getElementById('addFriendModal');
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+
+        function handleFriendSubmit(e) {
+          e.preventDefault();
+          closeAddFriendModal();
+          const toast = document.getElementById('reminderToast');
+          const toastMsg = document.getElementById('toastMessage');
+          toastMsg.textContent = 'Friend successfully added to your ledger!';
+          toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+          toast.classList.add('translate-y-0', 'opacity-100');
+
+          setTimeout(() => {
+            toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+          }, 3000);
+        }
+
+        function openAddSplitModal() {
+          const activeName = document.getElementById('detailName').textContent;
+          alert(`Quick Split modal with ${activeName} will open.`);
+        }
+      </script>
+    </div>
+  </main>
+  <footer class="w-full bg-surface-container-low mt-space-2xl">
+    <div
+      class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant">
+      <div class="flex items-center gap-space-sm"><span
+          class="font-label-lg text-label-lg text-on-surface">MoneyTrack</span><span>© 2025 Personal Balance Ledger
+          &amp; EMI Systems.</span></div>
+      <div class="flex items-center gap-space-lg font-label-md text-label-md"><a
+          class="hover:text-on-surface transition-colors" data-path="friends-ledger" href="#">Balances</a><a
+          class="hover:text-on-surface transition-colors" data-path="emi-tracker" href="#">Schedules</a><a
+          class="hover:text-on-surface transition-colors" data-path="settle-up" href="#">Settlements</a></div>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserProfile {
+  id              String   @id @default("default_user")
+  name            String   @default("Me")
+  email           String?
+  whatsapp_number String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Person {
+  id              String        @id @default(cuid())
+  name            String
+  email           String?
+  phone           String?
+  whatsapp_number String?
+  avatarUrl       String?
+  notes           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  transactions    Transaction[]
+  repayments      Repayment[]
+}
+
+model Transaction {
+  id          String      @id @default(cuid())
+  description String
+  amount      Float
+  type        String      // "LENT" (you gave to person) or "BORROWED" (person gave to you)
+  status      String      @default("PENDING") // "PENDING", "PARTIALLY_PAID", "SETTLED"
+  category    String      @default("General")
+  date        DateTime    @default(now())
+  personId    String
+  person      Person      @relation(fields: [personId], references: [id], onDelete: Cascade)
+  repayments  Repayment[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Repayment {
+  id            String       @id @default(cuid())
+  amount        Float
+  date          DateTime     @default(now())
+  notes         String?
+  personId      String
+  person        Person       @relation(fields: [personId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: SetNull)
+  createdAt     DateTime     @default(now())
+}
+
+model EMI {
+  id                 String        @id @default(cuid())
+  title              String
+  lender             String
+  principalAmount    Float
+  annualInterestRate Float
+  tenureMonths       Int
+  startDate          DateTime
+  monthlyEMI         Float
+  autoDebitDay       Int           @default(5)
+  category           String        @default("Personal") // "Home", "Auto", "Personal", "Education"
+  status             String        @default("ACTIVE")   // "ACTIVE", "CLOSED"
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  payments           EMI_Payment[]
+}
+
+model EMI_Payment {
+  id            String    @id @default(cuid())
+  installmentNo Int
+  amount        Float
+  principalPart Float
+  interestPart  Float
+  dueDate       DateTime
+  paidDate      DateTime?
+  status        String    @default("UPCOMING") // "PAID", "UPCOMING", "OVERDUE"
+  emiId         String
+  emi           EMI       @relation(fields: [emiId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+}
