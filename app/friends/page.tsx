@@ -16,6 +16,7 @@ import {
   Phone,
   Mail,
   MessageSquare,
+  Trash2,
 } from 'lucide-react';
 import { formatINR } from '@/lib/utils';
 import confetti from 'canvas-confetti';
@@ -219,6 +220,8 @@ export default function FriendsLedgerPage() {
         }),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setIsSettleModalOpen(false);
         setSettleAmount('');
@@ -229,10 +232,83 @@ export default function FriendsLedgerPage() {
           origin: { y: 0.6 },
         });
         await fetchPeople();
-        triggerToast('Settlement saved & confirmation email receipt sent!');
+        if (data.remainingBalance && Math.abs(data.remainingBalance) > 0.001) {
+          triggerToast(
+            `Partial settlement saved! Remaining balance: ${formatINR(Math.abs(data.remainingBalance))}`
+          );
+        } else {
+          triggerToast('Settlement saved & confirmation email receipt sent!');
+        }
+      } else {
+        triggerToast(data.error || 'Failed to record settlement');
       }
     } catch (err) {
       console.error(err);
+      triggerToast('Failed to record settlement');
+    }
+  };
+
+  const handleDeleteTransaction = async (txId: string, desc: string) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete the transaction "${desc}"?\n\nThis will recalculate balances and permanently remove related records.`
+    );
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`/api/transactions?id=${txId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        triggerToast('Transaction deleted successfully!');
+        await fetchPeople();
+      } else {
+        triggerToast(data.error || 'Failed to delete transaction');
+      }
+    } catch (err) {
+      console.error(err);
+      triggerToast('Error deleting transaction');
+    }
+  };
+
+  const handleDeleteFriend = async (person: Person) => {
+    if (person.netBalance !== 0) {
+      triggerToast(
+        `Cannot delete ${person.name} with unsettled balance of ${formatINR(Math.abs(person.netBalance))}. Please settle first.`
+      );
+      return;
+    }
+
+    const hasUnsettled = person.transactions?.some((t) => t.status !== 'SETTLED');
+    if (hasUnsettled) {
+      triggerToast(
+        `Cannot delete ${person.name} because they have pending transactions. Please settle or remove them first.`
+      );
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${person.name} from your friends ledger?\n\nThis will remove the contact from your ledger.`
+    );
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`/api/friends?id=${person.id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        triggerToast(`Friend ${person.name} deleted successfully!`);
+        setSelectedPersonId(null);
+        await fetchPeople();
+      } else {
+        triggerToast(data.error || 'Failed to delete friend');
+      }
+    } catch (err) {
+      console.error(err);
+      triggerToast('Error deleting friend');
     }
   };
 
@@ -546,6 +622,15 @@ export default function FriendsLedgerPage() {
                     <Plus className="w-3.5 h-3.5" />
                     <span>Split New</span>
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteFriend(selectedPerson)}
+                    className="inline-flex items-center gap-1 p-2 rounded-xl text-xs font-bold text-on-surface-variant hover:text-tertiary hover:bg-error-container/30 transition-all"
+                    title={`Delete ${selectedPerson.name}`}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span className="hidden sm:inline">Delete Friend</span>
+                  </button>
                 </div>
               </div>
 
@@ -633,18 +718,49 @@ export default function FriendsLedgerPage() {
                           </div>
                         </div>
 
-                        <div className="text-right">
-                          <span
-                            className={`text-sm font-bold tabular-nums ${
-                              tx.type === 'LENT' ? 'text-secondary' : 'text-tertiary'
-                            }`}
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <span
+                              className={`text-sm font-bold tabular-nums ${
+                                tx.type === 'LENT' ? 'text-secondary' : 'text-tertiary'
+                              }`}
+                            >
+                              {tx.type === 'LENT' ? '+' : '-'}
+                              {formatINR(tx.amount)}
+                            </span>
+                            <p className="text-[10px] text-on-surface-variant font-medium">
+                              {tx.status === 'SETTLED' ? (
+                                <span className="text-secondary">Settled</span>
+                              ) : tx.status === 'PARTIALLY_PAID' ? (
+                                <span className="text-primary font-semibold">
+                                  Partially Paid (
+                                  {formatINR(
+                                    Math.max(
+                                      0,
+                                      tx.amount -
+                                        (tx.repayments?.reduce(
+                                          (sum, r) => sum + r.amount,
+                                          0
+                                        ) || 0)
+                                    )
+                                  )}{' '}
+                                  left)
+                                </span>
+                              ) : (
+                                'Pending'
+                              )}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleDeleteTransaction(tx.id, tx.description)
+                            }
+                            className="p-1.5 rounded-lg text-on-surface-variant hover:text-tertiary hover:bg-error-container/30 transition-all opacity-60 hover:opacity-100 cursor-pointer"
+                            title="Delete transaction"
                           >
-                            {tx.type === 'LENT' ? '+' : '-'}
-                            {formatINR(tx.amount)}
-                          </span>
-                          <p className="text-[10px] text-on-surface-variant">
-                            {tx.status === 'SETTLED' ? 'Settled' : 'Pending'}
-                          </p>
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
                         </div>
                       </div>
                     ))}

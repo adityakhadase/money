@@ -23,6 +23,7 @@ export default function SettleUpPage() {
   const [amount, setAmount] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const fetchPeople = async () => {
     try {
@@ -50,6 +51,8 @@ export default function SettleUpPage() {
 
   const handleSelectPerson = (id: string) => {
     setSelectedPersonId(id);
+    setErrorMsg(null);
+    setSuccessMsg(null);
     const p = people.find((item) => item.id === id);
     if (p && p.netBalance !== 0) {
       setAmount(Math.abs(p.netBalance).toString());
@@ -62,6 +65,9 @@ export default function SettleUpPage() {
     e.preventDefault();
     if (!selectedPersonId || !amount) return;
 
+    setErrorMsg(null);
+    setSuccessMsg(null);
+
     try {
       const res = await fetch('/api/repayments', {
         method: 'POST',
@@ -73,18 +79,31 @@ export default function SettleUpPage() {
         }),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
         });
-        setSuccessMsg('Ledger successfully balanced and confirmation email receipt sent!');
-        setTimeout(() => setSuccessMsg(null), 5000);
+
+        if (data.remainingBalance && Math.abs(data.remainingBalance) > 0.001) {
+          setSuccessMsg(
+            `Partial settlement recorded! Remaining balance: ${formatINR(Math.abs(data.remainingBalance))}`
+          );
+        } else {
+          setSuccessMsg('Ledger successfully balanced and settled!');
+        }
+
+        setTimeout(() => setSuccessMsg(null), 6000);
         await fetchPeople();
+      } else {
+        setErrorMsg(data.error || 'Failed to process settlement');
       }
     } catch (err) {
       console.error(err);
+      setErrorMsg('Failed to process settlement');
     }
   };
 
@@ -113,6 +132,13 @@ export default function SettleUpPage() {
         <div className="my-6 p-4 rounded-2xl bg-secondary-container/50 border border-secondary text-on-secondary-container flex items-center gap-3">
           <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0" />
           <span className="text-sm font-semibold">{successMsg}</span>
+        </div>
+      )}
+
+      {errorMsg && (
+        <div className="my-6 p-4 rounded-2xl bg-error-container/50 border border-tertiary text-on-error-container flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-tertiary flex-shrink-0" />
+          <span className="text-sm font-semibold">{errorMsg}</span>
         </div>
       )}
 
